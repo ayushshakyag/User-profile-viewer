@@ -8,7 +8,7 @@ Installation and Setup
 To install and run the app, follow these steps:
 
 Clone the repository to your local machine:
-git clone https://github.com/ayushshakyag/frontend_beginner_1_.git
+git clone https://github.com/ayushshakyag/User-profile-viewer.git
 
 Install dependencies by running npm install or yarn install in the root directory.
 Run the app by running npm start or yarn start.
