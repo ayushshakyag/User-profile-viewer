@@ -74,3 +74,30 @@
   margin: 0;
   line-height: 1.5;
 }
+
+.search-container {
+  text-align: center;
+}
+
+
+.user-search-box {
+  margin: 0 auto;
+  border: 1px solid #ddd; 
+  border-radius: 4px; 
+  outline: none;
+  padding: 10px;
+  width: 200px; 
+  line-height: 1.5;
+  margin-bottom: 20px; 
+  font-size: 1rem;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1); 
+  transition: border-color 0.3s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.user-search-box:focus {
+  border-color: #007bff; 
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.4); 
+}
+
+
