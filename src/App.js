@@ -5,8 +5,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
+  const [searchField, setSearchField] = useState("");
   const [users, setUsers] = useState([]);
   const [avatars, setAvatars] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+
+  useEffect(() => {
+    setFilteredUsers(
+      users.filter((user) => {
+        return user.name.toLowerCase().includes(searchField);
+      })
+    );
+  }, [users, searchField]);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
@@ -21,7 +31,7 @@ function App() {
       .all(
         users.map((user) =>
           axios.get(
-            `https://avatars.dicebear.com/v2/avataaars/${user.username}.svg?options[mood][]=happy`
+            `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.username}`
           )
         )
       )
@@ -30,11 +40,24 @@ function App() {
       });
   }, [users]);
 
+  const onSearchChange = (event) => {
+    const searchFieldString = event.target.value.toLowerCase();
+    setSearchField(searchFieldString);
+  };
+
   return (
     <div className="App">
-      {users.length ? (
+      <div className="search-container">
+        <input
+          className="user-search-box"
+          type="search"
+          placeholder="Name of user"
+          onChange={onSearchChange}
+        />
+      </div>
+      {filteredUsers.length ? (
         <div className="user-profiles-container">
-          {users.map((user) => (
+          {filteredUsers.map((user) => (
             <div className="user-profile" key={user.id}>
               <img src={avatars[user.id - 1]} alt={`${user.name}'s avatar`} />
               <div className="user-details">
