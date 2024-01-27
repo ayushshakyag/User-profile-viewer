@@ -76,12 +76,13 @@
 }
 
 .search-container {
+  background-color: #000000;
   text-align: center;
 }
 
 
 .user-search-box {
-  margin: 0 auto;
+  margin-top: 10px;
   border: 1px solid #ddd; 
   border-radius: 4px; 
   outline: none;
@@ -100,4 +101,13 @@
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.4); 
 }
 
+.user-not-found {
+  background-color: rgb(160, 0, 0);
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  margin: 14px 616px;
+  text-align: center;
+}
 

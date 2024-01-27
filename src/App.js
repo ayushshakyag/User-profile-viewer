@@ -9,6 +9,7 @@ function App() {
   const [users, setUsers] = useState([]);
   const [avatars, setAvatars] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setFilteredUsers(
@@ -19,10 +20,12 @@ function App() {
   }, [users, searchField]);
 
   useEffect(() => {
+    setLoading(true);
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);
+        setLoading(false); 
       });
   }, []);
 
@@ -55,40 +58,44 @@ function App() {
           onChange={onSearchChange}
         />
       </div>
-      {filteredUsers.length ? (
-        <div className="user-profiles-container">
-          {filteredUsers.map((user) => (
-            <div className="user-profile" key={user.id}>
-              <img src={avatars[user.id - 1]} alt={`${user.name}'s avatar`} />
-              <div className="user-details">
-                <h2>{user.name}</h2>
-                <p>
-                  <strong>Email:</strong> {user.email}
-                </p>
-                <p>
-                  <strong>Phone:</strong> {user.phone}
-                </p>
-                <p>
-                  <strong>Company:</strong> {user.company.name}
-                </p>
-                <p>
-                  <strong>Website:</strong> {user.website}
-                </p>
-                <p>
-                  <strong>Address:</strong> {user.address.street},{" "}
-                  {user.address.suite}, {user.address.city},{" "}
-                  {user.address.zipcode}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
+      {loading ? (
         <div className="spinner">
           <div className="bounce1"></div>
           <div className="bounce2"></div>
           <div className="bounce3"></div>
         </div>
+      ) : (
+        filteredUsers.length ? (
+          <div className="user-profiles-container">
+            {filteredUsers.map((user) => (
+              <div className="user-profile" key={user.id}>
+                <img src={avatars[user.id - 1]} alt={`${user.name}'s avatar`} />
+                <div className="user-details">
+                  <h2>{user.name}</h2>
+                  <p>
+                    <strong>Email:</strong> {user.email}
+                  </p>
+                  <p>
+                    <strong>Phone:</strong> {user.phone}
+                  </p>
+                  <p>
+                    <strong>Company:</strong> {user.company.name}
+                  </p>
+                  <p>
+                    <strong>Website:</strong> {user.website}
+                  </p>
+                  <p>
+                    <strong>Address:</strong> {user.address.street},{" "}
+                    {user.address.suite}, {user.address.city},{" "}
+                    {user.address.zipcode}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="user-not-found">User not found</div>
+        )
       )}
     </div>
   );
